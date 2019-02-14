@@ -1,8 +1,11 @@
 package game;
 
+import java.util.Random;
+
 public enum Location {
 	
-	//these specify the player's current location within the labyrinth
+	//these specify locations for the player, enemies, and items
+	
 	//this is the initial room the player starts the game in
 	RM0,
 	
@@ -20,6 +23,15 @@ public enum Location {
 	
 	RM7,
 	
-	RM8;
+	RM8,
+	
+	INVENTORY,
+	
+	ENEMY;
+	
+	public static Location getRandomLocation() {
+		Random rand = new Random();
+		return values()[rand.nextInt(values().length - 2)];
+	}
 	
 }

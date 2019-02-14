@@ -1,9 +1,9 @@
 package game;
 
 public class Enemy {
-
+	
 	//reference for enemy name
-	private String name;
+	private EnemyName name;
 	
 	//reference for enemy hp stat
 	private int hp;
@@ -12,21 +12,21 @@ public class Enemy {
 	private int exp;
 	
 	//reference for item dropped by enemy
-	private int itemDrop;
+	private Item itemDrop;
 	
-	//reference for enemy's location
+	//reference for enemy location
 	private Location location;
 	
-	public Enemy(String name, int hp, int exp, int itemDrop, Location location) {
+	public Enemy(EnemyName name, int hp, Item itemDrop, Location location) {
 		//initializes enemy state
 		this.name = name;
 		this.hp = hp;
-		this.exp = exp;
+		this.exp = 10;
 		this.itemDrop = itemDrop;
 		this.location = location;
 	}
 	
-	public String getName() {
+	public EnemyName getName() {
 		//get enemy's name
 		return name;
 	}
@@ -45,7 +45,7 @@ public class Enemy {
 		return exp;
 	}
 	
-	public int getItemDrop() {
+	public Item getItemDrop() {
 		//get item dropped by enemy
 		return itemDrop;
 	}

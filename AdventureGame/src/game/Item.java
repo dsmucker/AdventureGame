@@ -5,27 +5,22 @@ public class Item {
 	//reference for item type
 	private ItemType type;
 	
-	//reference for itemRank
-	private int rank;
-	
-	//reference for itemCount, the # of a particular item held
+	//reference for itemCount
 	private int count;
 	
-	public Item(ItemType type, int rank, int count) {
+	//reference for item's location
+	private Location itemLoc;
+	
+	public Item(ItemType type, int count, Location itemLoc) {
 		//initialize item state
 		this.type = type;
-		this.rank = rank;
 		this.count = count;
+		this.itemLoc = itemLoc;
 	}
 	
 	public ItemType getItemType() {
 		//get type of item
 		return type;
-	}
-	
-	public int getItemRank() {
-		//get item's number
-		return rank;
 	}
 	
 	public int getItemCount() {
@@ -37,5 +32,24 @@ public class Item {
 		//change the # of a particular item held
 		this.count = num;
 	}
+	
+	public Location getItemLocation() {
+		//get item's current location
+		return itemLoc;
+	}
+	
+	public void setItemLocation(Location iLoc) {
+		//set the item's location
+		this.itemLoc = iLoc;
+	}
 
+	public static Item getRandomItemDrop() {
+		//get random item for item drops by enemies
+		return new Item(ItemType.getRandomItemType(), 1, Location.ENEMY);
+	}
+	
+	public static Item getRandomItem() {
+		//get random item for items to be found in labyrinth
+		return new Item(ItemType.getRandomItemType(), 1, Location.getRandomLocation());
+	}
 }

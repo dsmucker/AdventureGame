@@ -14,10 +14,10 @@ public class ItemTest {
 	
 	@Before
 	public void setUp() {
-		sword = new Item(ItemType.SWORD, 1, 1);
-		dagger = new Item(ItemType.DAGGER, 2, 0);
-		shield = new Item(ItemType.SHIELD, 3, 0);
-		grnPotion = new Item(ItemType.GREENPOTION, 4, 5);
+		sword = new Item(ItemType.SWORD, 1, Location.RM1);
+		dagger = new Item(ItemType.DAGGER, 0, Location.RM5);
+		shield = new Item(ItemType.SHIELD, 0, Location.RM0);
+		grnPotion = new Item(ItemType.GREENPOTION, 5, Location.RM8);
 	}
 
 	@Test
@@ -27,21 +27,6 @@ public class ItemTest {
 		assertEquals(ItemType.DAGGER, dagger.getItemType());
 		assertEquals(ItemType.SHIELD, shield.getItemType());
 		assertEquals(ItemType.GREENPOTION, grnPotion.getItemType());
-	}
-	
-	@Test
-	public void testGetItemRank() throws Exception {
-		//test getting the item's rank
-		assertEquals(1, sword.getItemRank());
-		assertEquals(2, dagger.getItemRank());
-		assertEquals(3, shield.getItemRank());
-		assertEquals(4, grnPotion.getItemRank());
-		assertTrue(sword.getItemRank() != dagger.getItemRank() &&
-				sword.getItemRank() != shield.getItemRank() &&
-				sword.getItemRank() != grnPotion.getItemRank());
-		assertTrue(dagger.getItemRank() != shield.getItemRank() &&
-				dagger.getItemRank() != grnPotion.getItemRank());
-		assertTrue(shield.getItemRank() != grnPotion.getItemRank());
 	}
 	
 	@Test
@@ -81,4 +66,66 @@ public class ItemTest {
 		assertEquals(99, grnPotion.getItemCount());
 	}
 	
+	@Test
+	public void testGetItemLocation() throws Exception {
+		//test getting item's current location
+		Location swordLoc = sword.getItemLocation();
+		Location daggerLoc = dagger.getItemLocation();
+		Location shieldLoc = shield.getItemLocation();
+		Location potionLoc = grnPotion.getItemLocation();
+		
+		assertEquals(Location.RM1, swordLoc);
+		assertEquals(Location.RM5, daggerLoc);
+		assertEquals(Location.RM0, shieldLoc);
+		assertEquals(Location.RM8, potionLoc);
+	}
+	
+	@Test
+	public void testSetItemLocation() throws Exception {
+		//test changing item's location
+		Location swordILoc = sword.getItemLocation();
+		Location daggerILoc = dagger.getItemLocation();
+		Location shieldILoc = shield.getItemLocation();
+		Location potionILoc = grnPotion.getItemLocation();
+		
+		sword.setItemLocation(Location.RM2);
+		dagger.setItemLocation(Location.RM4);
+		shield.setItemLocation(Location.RM1);
+		grnPotion.setItemLocation(Location.RM7);
+		
+		assertTrue(swordILoc != sword.getItemLocation());
+		assertTrue(daggerILoc != dagger.getItemLocation());
+		assertTrue(shieldILoc != shield.getItemLocation());
+		assertTrue(potionILoc != grnPotion.getItemLocation());
+		
+		assertEquals(Location.RM2, sword.getItemLocation());
+		assertEquals(Location.RM4, dagger.getItemLocation());
+		assertEquals(Location.RM1, shield.getItemLocation());
+		assertEquals(Location.RM7, grnPotion.getItemLocation());
+	}
+	
+	@Test
+	public void testGetRandomItemDrop() throws Exception {
+		//test getting random item drop from enemy
+		Item itemDrop = Item.getRandomItemDrop();
+		Item difDrop = Item.getRandomItemDrop();
+		
+		assertEquals(1, itemDrop.getItemCount());
+		assertEquals(Location.ENEMY, itemDrop.getItemLocation());
+		assertTrue(Location.getRandomLocation() != itemDrop.getItemLocation());
+		assertTrue(itemDrop != difDrop);
+	}
+	
+	@Test
+	public void testGetRandomItem() throws Exception {
+		//test getting a random item for items to be found
+		Item randItem = Item.getRandomItem();
+		Item difItem = Item.getRandomItem();
+		
+		assertTrue(randItem != difItem);
+		assertTrue(randItem.getItemLocation() != Location.ENEMY && randItem.getItemLocation() != Location.INVENTORY);
+		assertTrue(difItem.getItemLocation() != Location.ENEMY && difItem.getItemLocation() != Location.INVENTORY);
+		assertTrue(randItem.getItemLocation() != difItem.getItemLocation());
+		assertTrue(randItem.getItemCount() == 1 && difItem.getItemCount() == 1);
+	}
 }

@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Random;
+
 public enum ItemType {
 
 	//for items, more can be added later
@@ -10,5 +12,11 @@ public enum ItemType {
 	SHIELD,
 	
 	GREENPOTION;
+	
+	//get random item
+	public static ItemType getRandomItemType() {
+		Random rand = new Random();
+		return values()[rand.nextInt(values().length)];
+	}
 	
 }

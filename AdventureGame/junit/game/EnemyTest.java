@@ -10,35 +10,55 @@ import org.junit.Test;
 public class EnemyTest {
 
 	private Enemy enemy;
+	private Item itemDrop;
 	
 	@Before
 	public void setUp() {
-		enemy = new Enemy("Hercules", 100, 10, 1, Location.RM3);
+		itemDrop = new Item(ItemType.GREENPOTION, 1, Location.ENEMY);
+		enemy = new Enemy(EnemyName.HERCULES, 100, itemDrop, Location.RM3);
+	}
+	
+	@Test
+	public void testGetName() throws Exception {
+		//test getting enemy's name
+		assertEquals(EnemyName.HERCULES, enemy.getName());
 	}
 	
 	@Test
 	public void testGetHealth() throws Exception {
-		//test getting player's health
+		//test getting enemy's health
 		assertEquals(100, enemy.getHealth());
 	}
 	
 	@Test
 	public void testSetHealth() throws Exception {
-		//test changing player's health status
+		//test changing enemy's health status
 		int initHP = enemy.getHealth();
 		enemy.setHealth(50);
 		assertTrue(initHP > enemy.getHealth());
 	}
 	
 	@Test
+	public void testGetExp() throws Exception {
+		//test getting experience given for defeating enemy
+		assertEquals(10, enemy.getExp());
+	}
+	
+	@Test
+	public void testGetItemDrop() throws Exception {
+		//test getting the enemy's item drop
+		assertEquals(itemDrop, enemy.getItemDrop());
+	}
+	
+	@Test
 	public void testGetLocation() throws Exception {
-		//test getting player's location
+		//test getting enemy's location
 		assertEquals(Location.RM3, enemy.getLocation());
 	}
 	
 	@Test
 	public void testSetLocation() throws Exception {
-		//test changing the player's current location
+		//test changing the enemy's current location
 		Location initLoc = enemy.getLocation();
 		enemy.setLocation(Location.RM1);
 		assertTrue(initLoc != enemy.getLocation());
